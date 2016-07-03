@@ -1,4 +1,4 @@
-var contador=0;
+var texto="";
 
 var http = require('http'),
     fs = require('fs'),
@@ -27,7 +27,8 @@ function enviarValor(valor) {
 io.on('connection', function(socket) {
 	
     // Use socket to communicate with this particular client only, sending it it's own id
-    socket.on('valor', function(data){enviarValor(data.data);});
+    socket.on('valor', function(data){texto=data.data;enviarValor(texto);});
+    socket.emit('welcome', {texto:texto});
 });
 
 app.listen(3000);
